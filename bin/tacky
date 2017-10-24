@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+# Preload the source files
+Dir.glob(File.join('src/**/*.rb')).each { |file| load file }
+
+# Load the credentials
+config = Tacky::ConfigService.new('.credentials')
+
+# Run the specified task
+case ARGV.first
+  when 'track'
+    Tacky::TrackerService.call(config)
+  else
+    # Display the help text
+    puts "Available commands:"
+    puts "  #{__FILE__} track             # updates tempo from spreadsheet data"
+end
